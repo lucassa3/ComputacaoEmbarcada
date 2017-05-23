@@ -6333,7 +6333,7 @@ OUTPUT(07-PIO-OUTPUT.elf elf32-littlearm)
  .debug_line    0x000048a1      0x7d2 src/ASF/sam/utils/cmsis/same70/source/templates/system_same70.o
  .debug_line    0x00005073      0xd8e src/main.o
 
-.debug_str      0x00000000    0x8877f
+.debug_str      0x00000000    0x887c7
  .debug_str     0x00000000    0x84cff src/ASF/common/services/clock/same70/sysclk.o
                               0x85349 (size before relaxing)
  .debug_str     0x00084cff       0x94 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
@@ -6348,7 +6348,7 @@ OUTPUT(07-PIO-OUTPUT.elf elf32-littlearm)
                               0x81c6d (size before relaxing)
  .debug_str     0x00086cb1      0x1aa src/ASF/sam/utils/cmsis/same70/source/templates/system_same70.o
                               0x726a4 (size before relaxing)
- .debug_str     0x00086e5b     0x1924 src/main.o
+ .debug_str     0x00086e5b     0x196c src/main.o
                               0x870a4 (size before relaxing)
 
 .debug_frame    0x00000000      0xc04

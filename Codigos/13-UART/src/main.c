@@ -58,11 +58,10 @@ static void Button1_Handler(uint32_t id, uint32_t mask)
 
 void USART1_Handler(void){
   uint32_t ret = usart_get_status(USART_COM);
-  uint8_t  c;
   
   // Verifica por qual motivo entrou na interrupçcao
   if(ret & US_IER_RXRDY){                     // Dado disponível para leitura
-    usart_serial_getchar(USART_COM, &c);
+    usart_gets(bufferRX);
     usart_puts(bufferTX);
   } else if(ret & US_IER_TXRDY){              // Transmissão finalizada
     
@@ -151,8 +150,13 @@ static void USART1_init(void){
  * Retorna a quantidade de char escritos
  */
 uint32_t usart_puts(uint8_t *pstring){
-     
-  return 0;
+ uint32_t i;
+ for (i = 0; pstring[i] != NULL; i++) {
+	 usart_serial_putchar(USART1,pstring[i]);
+	 while (uart_is_tx_empty(ID_USART1)){}
+ }
+
+ return i;
 }
 
 /*
@@ -163,8 +167,15 @@ uint32_t usart_puts(uint8_t *pstring){
  * Retorna a quantidade de char lidos
  */
 uint32_t usart_gets(uint8_t *pstring){
+	 uint32_t i;
+	 uint8_t recv_char;
+	 
+	 for (i = 0; pstring[i] != '\n'; i++) {
+		 usart_serial_getchar(USART1,&recv_char);
+		 pstring[i] = recv_char;
+	 }
 
-  return 0;  
+	 return i;
 }
 
 /************************************************************************/
@@ -193,7 +204,7 @@ int main(void){
         
 	while (1) {
     sprintf(bufferTX, "%s \n", "Ola Voce");
-    //usart_puts(bufferTX);
+    usart_puts(bufferTX);
    // usart_gets(bufferRX);
     delay_s(1);
 	}

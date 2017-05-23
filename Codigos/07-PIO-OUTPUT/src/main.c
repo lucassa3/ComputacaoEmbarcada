@@ -233,7 +233,7 @@ int main(void)
 	*	- PIO_CODR : coloca 0 no pino 
     */
 	PIOC->PIO_CODR =  (1 << 8);
-	int opa = 0;
+	int opa = 1;
 	/************************************************************************/
 	/* Super loop                                                           */
 	/************************************************************************/
@@ -242,16 +242,15 @@ int main(void)
 	* @Brief Diferente de um código comum que executa em um pc, no uC deve estar
 	* sempre executando um código, por isso utilizamos esse loop infinito.
 	*/
-	while(1){
-		opa++;
-		if (opa%300000000==0) {
-			PIOC->PIO_SODR = (1<<8);
+	while (1) {
+		if (opa) {
+			PIOC->PIO_SODR = (1 << 8);
+			opa = 0;
+		} else {
+			PIOC->PIO_CODR = (1 << 8);
+			opa = 1;
 		}
-		if (opa%600000000==0) {
-			PIOC->PIO_CODR = (1<<8);
-		}
-		
-	};
+	}
 }
 
 
